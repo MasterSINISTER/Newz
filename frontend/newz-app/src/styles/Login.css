@@ -1,0 +1,92 @@
+.login-main {
+    font-family: "Bebas Neue", serif;
+    background-color: #F5EFE7;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    transition: all 1s ease;
+}
+
+
+.login-container {
+    animation: fadeIn 3s ease-in-out;
+    background: white;
+    border: 2px solid #000;
+    padding: 50px;
+    border-radius: 20px;
+    width: 520px;
+    box-shadow: 10px 10px 0 #000;
+    text-align: center;
+}
+
+.login-title {
+    animation: fadeIn 2s ease-in-out;
+    font-size: 58px;
+    margin-bottom: 30px;
+}
+
+.login-input-group {
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+.login-label {
+    display: block;
+    margin-bottom: 8px;
+    font-size: 30px;
+}
+
+.login-input {
+    width: 100%;
+    border-radius: 30px;
+    padding: 12px;
+    border: 2px solid #000;
+    box-shadow: 3px 3px 0 #000;
+    font-size: 24px;
+    font-family: "Oswald", serif;
+}
+
+
+.login-animation{
+    animation: fadeIn 3s ease-in-out;
+    width: 280px;
+    height: 200px;
+    border-radius: 300%;
+    transition: all 1s ease;
+}
+.login-button {
+    background-color: #213555;
+    border: 2px solid #000;
+    padding: 12px;
+    width: 100%;
+    border-radius: 30px;
+    cursor: pointer;
+    margin-top: 20px;
+    box-shadow: 3px 3px 0 #000;
+    font-size: 30px;
+    transition: all 1s ease;
+    color: white;
+}
+
+.login-button:hover {
+    background-color: #3E5879;
+    color: #F5EFE7;
+}
+
+@media (max-width: 600px) {
+    .login-container {
+        width: 90%;
+        padding: 30px;
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
