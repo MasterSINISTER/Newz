@@ -50,6 +50,17 @@ public class UserController {
         return new ResponseEntity<>("Something Went Wrong !",HttpStatus.BAD_REQUEST);
     }
 
+    @GetMapping("/verify")
+    public ResponseEntity<?>getVerified(){
+        Authentication authentication=SecurityContextHolder.getContext().getAuthentication();
+        String username=authentication.getName();
+        Optional<User>user= Optional.ofNullable(userServices.getUserByUsername(username));
+        if(user.isPresent()){
+            return new ResponseEntity<>(user.get(),HttpStatus.OK);
+        }
+        return new ResponseEntity<>("Not Found",HttpStatus.NOT_FOUND);
+    }
+
 
 
 }

@@ -1,13 +1,4 @@
-.nav-links {
-  display: flex;
-  list-style: none;
-  width: 50%;
-  height: 100%;
-  justify-content: space-around;
-  text-align: center;
-  gap: 30px;
-  font-size: 30px;
-}
+/* Navbar Container */
 .navbar-container {
   width: 47%;
   border-radius: 210px;
@@ -26,8 +17,12 @@
   left: 0;
   transition: all 1s ease;
   right: 0;
-  z-index: 1; 
+  z-index: 1;
+  display: flex;
+  justify-content: space-between; /* Aligns logo and nav links */
+  padding: 10px 30px;
 }
+
 .newz-logo-heading {
   font-weight: 900;
   text-decoration: underline;
@@ -38,6 +33,19 @@
   font-family: "Bebas Neue", serif;
   font-size: 900%;
 }
+
+/* Nav Links Styling */
+.nav-links {
+  display: flex;
+  list-style: none;
+  width: 50%;
+  height: 100%;
+  justify-content: space-around;
+  text-align: center;
+  gap: 30px;
+  font-size: 30px;
+}
+
 .links-nav a {
   text-decoration: none;
   letter-spacing: 4px;
@@ -47,11 +55,92 @@
   font-size: 40px;
   transition: all 1s ease;
   text-underline-offset: 35px;
-  /* display: block;
-    margin: auto; */
 }
+
 .links-nav a:hover {
   color: #F5EFE7;
   text-decoration: underline;
   text-underline-offset: 15px;
+}
+
+/* Media Queries for Responsiveness */
+
+/* For screens <= 1200px */
+@media (max-width: 1200px) {
+  .navbar-container {
+    width: 80%;
+    padding: 10px;
+  }
+
+  .nav-links {
+    width: 100%;
+    justify-content: space-evenly;
+    gap: 15px;
+    font-size: 25px;
+  }
+
+  .newz-logo-heading {
+    font-size: 600%;
+    letter-spacing: 18px;
+  }
+
+  .links-nav a {
+    font-size: 30px;
+  }
+}
+
+/* For screens <= 768px */
+@media (max-width: 768px) {
+  .navbar-container {
+    width: 90%;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px 0;
+    top: 0;
+  }
+
+  .nav-links {
+    width: 100%;
+    flex-direction: column;
+    gap: 10px;
+    font-size: 20px;
+    text-align: center;
+  }
+
+  .newz-logo-heading {
+    font-size: 400%;
+    letter-spacing: 10px;
+  }
+
+  .links-nav a {
+    font-size: 25px;
+    padding: 10px;
+  }
+}
+
+/* For screens <= 480px */
+@media (max-width: 480px) {
+  .navbar-container {
+    width: 100%;
+    flex-direction: column;
+    padding: 10px 0;
+    top: 0;
+  }
+
+  .nav-links {
+    width: 100%;
+    flex-direction: column;
+    gap: 8px;
+    font-size: 18px;
+  }
+
+  .newz-logo-heading {
+    font-size: 300%;
+    letter-spacing: 5px;
+  }
+
+  .links-nav a {
+    font-size: 20px;
+    padding: 8px;
+  }
 }
