@@ -1,16 +1,19 @@
-import React, { useState } from "react";
+import React, { useState,useRef } from "react";
 import "../styles/Login.css";
 import { Link, useNavigate } from "react-router-dom";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import DecryptedText from "../blocks/TextAnimations/DecryptedText/DecryptedText";
+import { Alert } from "@mui/material";
+import BlurText from "../blocks/TextAnimations/BlurText/BlurText";
 function Login() {
   const handleBack = () => {
     window.history.back();
   };
-
+  const containerRef = useRef(null);
   const [username, setUsername] = React.useState("");
   const [password, setPassword] = React.useState("");
   const navigate = useNavigate();
-  const [error, setError] = React.useState("");
+  const [error, setError] = React.useState(null);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -28,13 +31,16 @@ function Login() {
         localStorage.setItem("username", username);
         navigate("/dashboard");
       } else {
-        setError("Invalid username or password");
+        const enableError = document.querySelector(".error-message");
+        enableError.style.opacity = "1";
+        setError("Please Check User Credentials");
         setTimeout(() => {
           setError("");
+          enableError.style.opacity = "0";
         }, 3000);
       }
     } catch (error) {
-      console.log(error);
+      console.error("Error logging in:", error);
     }
   };
   return (
@@ -51,6 +57,13 @@ function Login() {
         }}
         onClick={handleBack}
       />
+      {/* <ClickSpark
+        sparkColor="#fff"
+        sparkSize={10}
+        sparkRadius={15}
+        sparkCount={8}
+        duration={400}
+      /> */}
       <div className="login-main">
         <div className="login-container">
           <img
@@ -60,8 +73,24 @@ function Login() {
           />
           <br />
           <br />
-          <h1 className="login-title">Login</h1>
-          {error && <p className="error-message">{error}</p>}
+          <BlurText
+            text="Login"
+            delay={150}
+            animateBy="letters"
+            direction="bottom"
+            // onAnimationComplete={handleAnimationComplete}
+            className="login-title"
+          />
+          {/* <h1 className="login-title">Login</h1> */}
+          {/* {error && <p className="error-message">{error}</p>} */}
+          <Alert
+            severity="error"
+            variant="outlined"
+            sx={{ opacity: 0 }}
+            className="error-message"
+          >
+            {error}
+          </Alert>
           <form id="loginForm" className="login-form" onSubmit={handleSubmit}>
             <div className="login-input-group">
               <label className="login-label" htmlFor="username">
@@ -77,9 +106,20 @@ function Login() {
               />
             </div>
             <div className="login-input-group">
-              <label className="login-label" htmlFor="password">
+              {/* <label className="login-label" htmlFor="password">
                 Password
-              </label>
+              </label> */}
+              <DecryptedText
+                text="Password"
+                speed={350}
+                maxIterations={20}
+                animateOn="view"
+                characters="ABCD1234!?"
+                className="login-label"
+                parentClassName="login-label"
+                encryptedClassName="encrypted"
+              />
+
               <input
                 type="password"
                 id="password"

@@ -3,16 +3,19 @@ import { Link, useNavigate } from "react-router-dom";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import "../styles/Register.css";
 import axios from "axios";
+import { Alert } from "@mui/material";
 
 export default function Register() {
   const [formData, setFormData] = React.useState({
+    name: "",
     username: "",
     email: "",
     password: "",
-    confirmPassword: "", // Added confirmPassword field
+    confirmPassword: "",
+    // Added confirmPassword field
   });
 
-  const [error, setError] = React.useState("");
+  const [error, setError] = React.useState(null);
   const navigate = useNavigate();
 
   const handleChange = (e) => {
@@ -28,19 +31,37 @@ export default function Register() {
 
     // Check if passwords match
     if (formData.password !== formData.confirmPassword) {
-      setError("Passwords do not match");
+      const enableError = document.querySelector(".error-message");
+        enableError.style.opacity = "1";
+        setError("Password don't Match");
+        setTimeout(() => {
+          setError("");
+          enableError.style.opacity = "0";
+        }, 3000);
       return;
     }
 
     // Check if password is long enough
     if (formData.password.length < 6) {
-      setError("Password must be at least 6 characters");
+      const enableError = document.querySelector(".error-message");
+        enableError.style.opacity = "1";
+        setError("Please Enter Strong Password");
+        setTimeout(() => {
+          setError("");
+          enableError.style.opacity = "0";
+        }, 3000);
       return;
     }
 
     // Check if username is long enough
     if (formData.username.length < 3) {
-      setError("Username must be at least 3 characters");
+      const enableError = document.querySelector(".error-message");
+      enableError.style.opacity = "1";
+      setError("Username must be more than 3 words");
+      setTimeout(() => {
+        setError("");
+        enableError.style.opacity = "0";
+      }, 3000);
       return;
     }
 
@@ -48,6 +69,7 @@ export default function Register() {
       const response = await axios.post(
         "http://localhost:8080/public/add-user",
         {
+          name: formData.name,
           username: formData.username,
           password: formData.password,
           email: formData.email,
@@ -55,15 +77,24 @@ export default function Register() {
       );
 
       if (response.status === 200) {
-        console.log("User Created!");
-        navigate("/dashboard");
+        const enableError = document.querySelector(".success-message");
+        enableError.style.opacity = "1";
+        setError("Welcome to Family !");
+        setTimeout(() => {
+          setError("");
+          enableError.style.opacity = "0";
+          navigate("/login")
+        }, 3000);
       }
     } catch (err) {
       console.log(err);
-      setError("Something went wrong. Please try again.");
-      setTimeout(() => {
-        setError("");
-      }, 3000);
+      const enableError = document.querySelector(".error-message");
+        enableError.style.opacity = "1";
+        setError("Something Went Wrong !");
+        setTimeout(() => {
+          setError("");
+          enableError.style.opacity = "0";
+        }, 3000);
     }
   };
 
@@ -91,18 +122,47 @@ export default function Register() {
             alt="Login Animation"
             className="register-animation"
           />
-          <br/>
-          <br/>
+          <br />
+          <br />
           <h1 className="register-title">Register</h1>
 
           {/* Error Message */}
-          {error && <p className="error-message">{error}</p>}
+          {/* {error && <p className="error-message">{error}</p>} */}
+          <Alert
+            variant="outlined"
+            severity="error"
+            className="error-message"
+            sx={{ opacity: 0 }}
+          >
+            {error}
+          </Alert>
+          <Alert
+            variant="outlined"
+            severity="success"
+            className="success-message"
+            sx={{ opacity: 0 }}
+          >
+            {error}
+          </Alert>
 
           <form
             id="registerForm"
             className="register-form"
             onSubmit={handleSubmit}
           >
+            <div className="register-input-group">
+              <label className="register-label" htmlFor="name">
+                Full Name
+              </label>
+              <input
+                type="text"
+                id="name"
+                name="name"
+                className="register-input"
+                required
+                onChange={handleChange}
+              />
+            </div>
             <div className="register-input-group">
               <label className="register-label" htmlFor="username">
                 Username

@@ -1,5 +1,6 @@
 package com.newZ.Newz.controllers;
 
+import com.newZ.Newz.apiResponse.emailRes;
 import com.newZ.Newz.entity.User;
 import com.newZ.Newz.services.UserServices;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.swing.text.html.Option;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 
@@ -30,6 +32,7 @@ public class UserController {
             currUser.setUserID(user.getUserID()!=null&&!user.getUserID().isEmpty()?user.getUserID():currUser.getUserID());
             currUser.setUsername(user.getUsername()!=null&&!user.getUsername().isEmpty()?user.getUsername():currUser.getUsername());
             currUser.setEmail(user.getEmail()!=null&&!user.getEmail().isEmpty()?user.getEmail():currUser.getEmail());
+            currUser.setName(user.getName()!=null&&!user.getName().isEmpty()?user.getName():currUser.getName());
             userServices.updateUser(currUser);
             return new ResponseEntity<>("User Updated Successfully",HttpStatus.ACCEPTED);
         }
@@ -61,6 +64,17 @@ public class UserController {
         return new ResponseEntity<>("Not Found",HttpStatus.NOT_FOUND);
     }
 
+
+    @GetMapping("/email-verify")
+    public ResponseEntity<?>emailValidationCheck(){
+        Authentication authentication=SecurityContextHolder.getContext().getAuthentication();
+        String getUsername=authentication.getName();
+        Optional<User>user= Optional.ofNullable(userServices.getUserByUsername(getUsername));
+        if(userServices.getValidation(user.get().getEmail())){
+            return new ResponseEntity<>("Valid !",HttpStatus.OK);
+        }
+        return new ResponseEntity<>("Not Valid !",HttpStatus.BAD_REQUEST);
+    }
 
 
 }

@@ -41,9 +41,10 @@
 }
 
 .login-label {
-    display: block;
+    /* display: block; */
     margin-bottom: 8px;
     font-size: 30px;
+    padding-top: 10px;
 }
 
 .login-input {

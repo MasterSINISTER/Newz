@@ -32,7 +32,7 @@ public class SpringSecurity {
         http
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers("/auth/**","/user/**").authenticated() // Protect specific endpoints
-                        .requestMatchers("/admin/**").hasAnyRole("ADMIN")
+//                        .requestMatchers("/admin/**").hasAnyRole("ADMIN")
                         .anyRequest().permitAll()
                 )
                 .httpBasic(Customizer.withDefaults())  // Using HTTP Basic Authentication

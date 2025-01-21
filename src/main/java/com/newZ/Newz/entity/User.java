@@ -17,7 +17,6 @@ import java.util.List;
 @Getter
 @Setter
 public class User {
-
     @Id
     private ObjectId id;
     @NonNull
