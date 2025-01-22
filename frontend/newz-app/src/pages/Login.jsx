@@ -1,4 +1,4 @@
-import React, { useState,useRef } from "react";
+import React from "react";
 import "../styles/Login.css";
 import { Link, useNavigate } from "react-router-dom";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
@@ -7,9 +7,8 @@ import { Alert } from "@mui/material";
 import BlurText from "../blocks/TextAnimations/BlurText/BlurText";
 function Login() {
   const handleBack = () => {
-    window.history.back();
+    navigate("/");
   };
-  const containerRef = useRef(null);
   const [username, setUsername] = React.useState("");
   const [password, setPassword] = React.useState("");
   const navigate = useNavigate();
@@ -29,6 +28,7 @@ function Login() {
         const authToken = btoa(username + ":" + password);
         localStorage.setItem("authToken", authToken);
         localStorage.setItem("username", username);
+        localStorage.setItem("name",response.json.name)
         navigate("/dashboard");
       } else {
         const enableError = document.querySelector(".error-message");
@@ -75,10 +75,9 @@ function Login() {
           <br />
           <BlurText
             text="Login"
-            delay={150}
+            delay={350}
             animateBy="letters"
             direction="bottom"
-            // onAnimationComplete={handleAnimationComplete}
             className="login-title"
           />
           {/* <h1 className="login-title">Login</h1> */}

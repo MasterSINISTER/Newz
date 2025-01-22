@@ -5,6 +5,7 @@ import Register from "./pages/Register";
 import NewsDashboard from "./pages/NewsDashboard";
 import PrivateRoute from "./services/PrivateRoute";
 import Contact from "./pages/Contact";
+import Error from "./pages/Error";
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
               </PrivateRoute>
             }
           />
+          <Route path="/error" element={<Error/>} />
         </Routes>
       </Router>
     </>

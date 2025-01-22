@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import "../styles/Home.css";
 import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
+import { Link } from "react-router-dom";
 
 function Home() {
   useEffect(() => {
@@ -38,7 +39,7 @@ function Home() {
         />
       </div>
       <div>
-        <button className="btn-scroll">GET STARTED</button>
+       <Link to="/login"> <button className="btn-scroll">GET STARTED</button></Link>
       </div>
       <div>
         <section className="newz-section">
@@ -60,7 +61,7 @@ function Home() {
         </section>
       </div>
       <div>
-        <section className="newz-section">
+        <section className="newz-section-why">
           <h1 className="about-us-heading" >What we do ?</h1>
           <div className="about-us-container">
           <h3 className="about-us-text">

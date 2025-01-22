@@ -1,7 +1,6 @@
 /* Navbar Container */
 .navbar-container {
-  width: 47%;
-  border-radius: 210px;
+  width: fit-content;
   padding: 10px;
   display: block;
   margin: auto;
@@ -11,7 +10,6 @@
   backdrop-filter: blur(4px);
   -webkit-backdrop-filter: blur(4px);
   border-radius: 100px;
-  border: 1px solid rgba(255, 255, 255, 0.18);
   position: fixed;
   top: 4;
   left: 0;
@@ -38,11 +36,13 @@
 .nav-links {
   display: flex;
   list-style: none;
-  width: 50%;
-  height: 100%;
+  width: auto;
+  height: auto;
   justify-content: space-around;
   text-align: center;
   gap: 30px;
+  
+  padding-top: 10px;
   font-size: 30px;
 }
 

@@ -4,6 +4,7 @@ import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import "../styles/Register.css";
 import axios from "axios";
 import { Alert } from "@mui/material";
+import BlurText from "../blocks/TextAnimations/BlurText/BlurText";
 
 export default function Register() {
   const [formData, setFormData] = React.useState({
@@ -32,24 +33,24 @@ export default function Register() {
     // Check if passwords match
     if (formData.password !== formData.confirmPassword) {
       const enableError = document.querySelector(".error-message");
-        enableError.style.opacity = "1";
-        setError("Password don't Match");
-        setTimeout(() => {
-          setError("");
-          enableError.style.opacity = "0";
-        }, 3000);
+      enableError.style.opacity = "1";
+      setError("Password don't Match");
+      setTimeout(() => {
+        setError("");
+        enableError.style.opacity = "0";
+      }, 3000);
       return;
     }
 
     // Check if password is long enough
     if (formData.password.length < 6) {
       const enableError = document.querySelector(".error-message");
-        enableError.style.opacity = "1";
-        setError("Please Enter Strong Password");
-        setTimeout(() => {
-          setError("");
-          enableError.style.opacity = "0";
-        }, 3000);
+      enableError.style.opacity = "1";
+      setError("Please Enter Strong Password");
+      setTimeout(() => {
+        setError("");
+        enableError.style.opacity = "0";
+      }, 3000);
       return;
     }
 
@@ -76,30 +77,51 @@ export default function Register() {
         }
       );
 
-      if (response.status === 200) {
+      const emailValidation = await axios.get(
+        "http://localhost:8080/user/email-verify",
+        {
+          headers: {
+            Authorization:
+              "Basic " + btoa(formData.username + ":" + formData.password),
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      if (response.status === 200 && emailValidation.status === 200) {
         const enableError = document.querySelector(".success-message");
         enableError.style.opacity = "1";
         setError("Welcome to Family !");
         setTimeout(() => {
           setError("");
           enableError.style.opacity = "0";
-          navigate("/login")
+          navigate("/login");
+        }, 3000);
+      }
+      else{
+        const enableError = document.querySelector(".error-message");
+        enableError.style.opacity = "1";
+        setError("Please Check Credetials Validation"); 
+        setTimeout(() => {
+          setError("");
+          enableError.style.opacity = "0";
+          navigate("/login");
         }, 3000);
       }
     } catch (err) {
       console.log(err);
       const enableError = document.querySelector(".error-message");
-        enableError.style.opacity = "1";
-        setError("Something Went Wrong !");
-        setTimeout(() => {
-          setError("");
-          enableError.style.opacity = "0";
-        }, 3000);
+      enableError.style.opacity = "1";
+      setError("Something Went Wrong !");
+      setTimeout(() => {
+        setError("");
+        enableError.style.opacity = "0";
+      }, 3000);
     }
   };
 
   const handleBack = () => {
-    window.history.back();
+    navigate("/");
   };
 
   return (
@@ -124,7 +146,15 @@ export default function Register() {
           />
           <br />
           <br />
-          <h1 className="register-title">Register</h1>
+          {/* <h1 className="register-title">Register</h1> */}
+          <BlurText
+            text="Register"
+            delay={350}
+            animateBy="letters"
+            direction="bottom"
+            // onAnimationComplete={handleAnimationComplete}
+            className="register-title"
+          />
 
           {/* Error Message */}
           {/* {error && <p className="error-message">{error}</p>} */}

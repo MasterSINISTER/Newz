@@ -2,6 +2,40 @@ import React, { useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import "../styles/Navbar.css"
 function Navbar() {
+
+
+
+  const handleWhyHere=() => {
+    const percentage = 100; // Change this to the desired percentage
+    const windowHeight = window.innerHeight;
+    const section = document.querySelector(".newz-section");
+    const sectionOffsetTop = section.offsetTop;
+    const targetScrollPosition =
+      sectionOffsetTop - windowHeight * (1 - percentage / 100);
+
+    window.scrollTo({
+      top: targetScrollPosition,
+      behavior: "smooth",
+    });
+  }
+
+
+
+  const handleWhatDoWeDo=() => {
+    const percentage = 100; // Change this to the desired percentage
+    const windowHeight = window.innerHeight;
+    const section = document.querySelector(".newz-section-why");
+    const sectionOffsetTop = section.offsetTop;
+    const targetScrollPosition =
+      sectionOffsetTop - windowHeight * (1 - percentage / 100);
+
+    window.scrollTo({
+      top: targetScrollPosition,
+      behavior: "smooth",
+    });
+  }
+
+  
     useEffect(() => {
         const handleScroll = () => {
             const navbarContainer = document.querySelector(".navbar-container");
@@ -25,9 +59,9 @@ function Navbar() {
       <nav className="navbar">
         <div className="nav-logo">
           <ul className="nav-links">
-          <li className='links-nav'><Link to="/">Home</Link></li>
-          <li className='links-nav'><Link to="/login">Explore</Link></li>
-          <li className='links-nav'><Link to="/contact">Contact</Link></li>
+          <li className='links-nav' onClick={handleWhyHere}><Link to="#">Why ?</Link></li>
+          <li className='links-nav' onClick={handleWhatDoWeDo}><Link to="#">What !</Link></li>
+          <li className='links-nav'><Link to="/">Contact</Link></li>
         </ul>
         </div>
        

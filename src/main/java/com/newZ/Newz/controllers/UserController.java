@@ -65,16 +65,7 @@ public class UserController {
     }
 
 
-    @GetMapping("/email-verify")
-    public ResponseEntity<?>emailValidationCheck(){
-        Authentication authentication=SecurityContextHolder.getContext().getAuthentication();
-        String getUsername=authentication.getName();
-        Optional<User>user= Optional.ofNullable(userServices.getUserByUsername(getUsername));
-        if(userServices.getValidation(user.get().getEmail())){
-            return new ResponseEntity<>("Valid !",HttpStatus.OK);
-        }
-        return new ResponseEntity<>("Not Valid !",HttpStatus.BAD_REQUEST);
-    }
+
 
 
 }
