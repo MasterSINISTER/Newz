@@ -1,0 +1,7 @@
+services:
+  - type: web
+    name: springboot-backend
+    env: java
+    buildCommand: "./mvnw clean package"
+    startCommand: "java -jar target/Newz-0.0.1-SNAPSHOT.jar"
+    runtime: java23 # or java17, depending on your project
