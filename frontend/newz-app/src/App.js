@@ -17,8 +17,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
-          <Route path="/contact" element={<Contact/>} />
-          <Route path="/saved-news" element={<SavedNews/>} />
+          <Route path="/contact" element={<Contact />} />
           <Route
             path="/dashboard"
             element={
@@ -27,7 +26,7 @@ function App() {
               </PrivateRoute>
             }
           />
-           <Route
+          <Route
             path="/profile"
             element={
               <PrivateRoute>
@@ -35,7 +34,15 @@ function App() {
               </PrivateRoute>
             }
           />
-          <Route path="/error" element={<Error/>} />
+          <Route
+            path="/saved-news"
+            element={
+              <PrivateRoute>
+                <SavedNews />
+              </PrivateRoute>
+            }
+          />
+          <Route path="/error" element={<Error />} />
         </Routes>
       </Router>
     </>
