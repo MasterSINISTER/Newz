@@ -33,6 +33,7 @@ public class User {
     private String password;
     @NonNull
     private List<String> roles;
+    private String userImage;
     @DBRef
     private List<News>saved=new ArrayList<>();
 

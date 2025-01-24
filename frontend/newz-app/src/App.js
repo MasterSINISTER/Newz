@@ -6,6 +6,8 @@ import NewsDashboard from "./pages/NewsDashboard";
 import PrivateRoute from "./services/PrivateRoute";
 import Contact from "./pages/Contact";
 import Error from "./pages/Error";
+import Profile from "./pages/Profile";
+import SavedNews from "./pages/SavedNews";
 
 function App() {
   return (
@@ -16,11 +18,20 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/contact" element={<Contact/>} />
+          <Route path="/saved-news" element={<SavedNews/>} />
           <Route
             path="/dashboard"
             element={
               <PrivateRoute>
                 <NewsDashboard />
+              </PrivateRoute>
+            }
+          />
+           <Route
+            path="/profile"
+            element={
+              <PrivateRoute>
+                <Profile />
               </PrivateRoute>
             }
           />

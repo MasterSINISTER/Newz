@@ -1,0 +1,75 @@
+.profile-heading {
+  font-weight: 900;
+  text-decoration: underline;
+  text-underline-offset: 25px;
+  color: #213555;
+  padding: 10px;
+  transition: all 1s ease;
+  letter-spacing: 22px;
+  font-family: "Bebas Neue", serif;
+  text-align: center;
+  font-size: 7rem; /* Adjusted for better sizing in a row */
+  flex-grow: 1; /* Allow heading to take up available space */
+  text-align: center;
+}
+.profile-container {
+  padding: 30px;
+}
+.profile-image {
+  width: 250px;
+  height: 230px;
+  border-radius: 200%;
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+  border: 5px solid #213555;
+  transition: all 1s ease;
+  image-rendering: optimizeSpeed;
+}
+.profile-image:hover {
+  transform: scale(1.1);
+}
+.profile-info {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: 20px;
+  padding: 10px;
+}
+.profile-info-heading {
+  font-family: "Oswald", sans-serif;
+  color: #213555;
+  font-size: 30px;
+  font-weight: 900;
+  transition: all 1s ease;
+  letter-spacing: 2px;
+  text-align: center;
+}
+.profile-info-content {
+  font-family: "Oswald", sans-serif;
+  color: #213555;
+  font-size: 25px;
+  transition: all 1s ease;
+  letter-spacing: 2px;
+}
+
+/* DarkMode and LightMode */
+
+body.dark-mode {
+  background-color: #000000;
+  transition: all 1s ease;
+}
+
+body.light-mode {
+  background-color: #f5efe7;
+}
+
+.newz-dashboard-heading.dark-mode {
+  color: #d8c4b6;
+}
+
+.newz-dashboard-heading.light-mode {
+  color: #213555;
+}

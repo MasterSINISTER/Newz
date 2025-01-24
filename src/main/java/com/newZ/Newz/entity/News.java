@@ -20,19 +20,19 @@ public class News {
     private ObjectId id;
     @NonNull
     private String newsID;
-    @NonNull
+    
     private String sourceName;
-    @NonNull
+
     private String author;
-    @NonNull
+
     private String title;
-    @NonNull
+
     private String url;
-    @NonNull
+
     private String urlToImage;
-    @NonNull
+
     private String content;
-    @NonNull
+
     private String description;
 
 

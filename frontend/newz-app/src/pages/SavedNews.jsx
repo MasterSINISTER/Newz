@@ -1,28 +1,30 @@
-import React, { useState, useEffect } from "react";
-import "../styles/Dashboard.css";
-import { Alert, Button } from "@mui/material";
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+import { Link, useNavigate } from "react-router-dom";
 import Box from "@mui/material/Box";
 import Avatar from "@mui/material/Avatar";
 import Menu from "@mui/material/Menu";
-import axios from "axios";
 import MenuItem from "@mui/material/MenuItem";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import Divider from "@mui/material/Divider";
 import IconButton from "@mui/material/IconButton";
 import Tooltip from "@mui/material/Tooltip";
-import Settings from "@mui/icons-material/Settings";
 import Logout from "@mui/icons-material/Logout";
-import { Link, useNavigate } from "react-router-dom";
 import DarkModeIcon from "@mui/icons-material/DarkMode";
 import LightModeIcon from "@mui/icons-material/LightMode";
-import CheckIcon from "@mui/icons-material/Check";
-
 import NewspaperIcon from "@mui/icons-material/Newspaper";
-import BookmarkIcon from "@mui/icons-material/Bookmark";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 
-function NewsDashboard() {
+import { Button, Alert } from "@mui/material";
+
+function SavedNews() {
+  const [savedNews, setSavedNews] = useState([]);
+
   const [fetchedImage, setFetchedImage] = useState(""); // State to hold the fetched image
 
+  const handleBack = () => {
+    navigate("/dashboard");
+  };
   const fetchUserImage = async () => {
     try {
       const authToken = localStorage.getItem("authToken");
@@ -42,27 +44,7 @@ function NewsDashboard() {
     }
   };
   const navigate = useNavigate();
-  const [getNews, setNews] = useState([]);
   const [error, setError] = useState("");
-  const [searchQuery, setSearchQuery] = useState("");
-  const getLocalName = async (e) => {
-    try {
-      const authToken = localStorage.getItem("authToken");
-      const response = await fetch("http://localhost:8080/admin/get-user", {
-        headers: {
-          method: "GET",
-          Authorization: `Basic ${authToken}`,
-          "Content-Type": "application/json",
-        },
-      });
-      if (response.status === 200) {
-        const data = await response.json();
-        localStorage.setItem("name", data.name);
-      }
-    } catch (err) {
-      console.log("ERROR");
-    }
-  };
 
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
@@ -77,34 +59,11 @@ function NewsDashboard() {
     navigate("/profile");
   };
 
-  const [saveNews, setSaveNews] = useState([]);
-  const handleSavedNews = (id) => {
-    try {
-      const authToken = localStorage.getItem("authToken");
-      const respose = fetch(`http://localhost:8080/auth/save-news/${id}`, {
-        method: "POST",
-        headers: {
-          method: "POST",
-          Authorization: `Basic ${authToken}`,
-        },
-      });
-      if (respose.status === 200) {
-        const enableError = document.querySelector(".success-message");
-        enableError.style.opacity = "1";
-        setTimeout(() => {
-          setError("");
-          enableError.style.opacity = "0";
-        }, 3000);
-      }
-    } catch (err) {
-      console.log("ERROR");
-    }
-  };
-  const fetchEntries = async (query = "top-news") => {
+  const getSavedNews = async () => {
     try {
       fetchUserImage();
       const authToken = localStorage.getItem("authToken");
-      const response = await fetch(`http://localhost:8080/auth/${query}`, {
+      const response = await fetch("http://localhost:8080/auth/get-news", {
         headers: {
           method: "GET",
           Authorization: `Basic ${authToken}`,
@@ -112,37 +71,46 @@ function NewsDashboard() {
       });
       if (response.status === 200) {
         const data = await response.json();
-        const filteredNews = data.filter(
-          (entry) => entry.title !== "[Removed]"
-        );
-        setNews(filteredNews);
-        setError("");
-      } else if (response.status === 401) {
-        const enableError = document.querySelector(".error-message");
-        enableError.style.opacity = "1";
-        setError("Unauthorized Access !");
-        setTimeout(() => {
-          setError("");
-          enableError.style.opacity = "0";
-        }, 3000);
+        setSavedNews(data);
       } else {
-        const enableError = document.querySelector(".error-message");
-        enableError.style.opacity = "1";
-        setError("Something Went Wrong Try Again !");
-        setTimeout(() => {
-          setError("");
-          enableError.style.opacity = "0";
-        }, 3000);
+        if (response.status === 401) {
+          localStorage.removeItem("authToken");
+          localStorage.removeItem("name");
+          localStorage.removeItem("username");
+          localStorage.removeItem("email");
+          window.location.href = "/";
+        }
       }
-    } catch (error) {
-      const enableError = document.querySelector(".error-message");
-      enableError.style.opacity = "1";
-      setError("Failed Fetching News");
-      setTimeout(() => {
-        setError("");
-        enableError.style.opacity = "0";
-      }, 3000);
+    } catch (err) {
+      console.log(err);
+      alert("Something Went Wrong !");
     }
+  };
+
+  const removeNews = async (id) => {
+    try {
+      const authToken = localStorage.getItem("authToken");
+      const response = await fetch(`http://localhost:8080/auth/delete/${id}`, {
+        method: "DELETE",
+        headers: {
+          method: "DELETE",
+          Authorization: `Basic ${authToken}`,
+        },
+      });
+      if (response.status === 200) {
+        getSavedNews();
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const handleLogOut = async () => {
+    localStorage.removeItem("authToken");
+    localStorage.removeItem("name");
+    localStorage.removeItem("username");
+    localStorage.removeItem("email");
+    window.location.href = "/login";
   };
 
   const applyTheme = (theme) => {
@@ -172,43 +140,30 @@ function NewsDashboard() {
     applyTheme("light");
   };
 
-  // On component load, apply the saved theme
   useEffect(() => {
-    const savedTheme = localStorage.getItem("theme") || "light"; // Default to light mode
-    applyTheme(savedTheme);
+    getSavedNews();
+    applyTheme(localStorage.getItem("theme"));
   }, []);
-
-  const handleSearch = () => {
-    if (searchQuery.trim()) {
-      fetchEntries(searchQuery.trim()); // Fetch news using the search query
-    } else {
-      fetchEntries(); // Fetch default news if search input is empty
-    }
-  };
-
-  useEffect(() => {
-    fetchEntries();
-    getLocalName();
-    applyTheme(localStorage.getItem("theme") || "light");
-  }, []);
-
-  const handleLogOut = async () => {
-    localStorage.removeItem("authToken");
-    localStorage.removeItem("name");
-    localStorage.removeItem("username");
-    localStorage.removeItem("email");
-    window.location.href = "/login";
-  };
-
   return (
     <>
+      <ArrowBackIcon
+        className="back-icon"
+        sx={{
+          fontSize: 50,
+          color: "#D8C4B6",
+          backgroundColor: "#3E5879",
+          borderRadius: "50px",
+          cursor: "pointer",
+        }}
+        onClick={handleBack}
+      />
       <div className="dashboard-header">
         <img
-          src="https://i.postimg.cc/3xK7W01x/monkey-unscreen.gif"
+          src="https://i.postimg.cc/fyW1zRYH/image-processing20210528-9634-unscreen.gif"
           alt=""
           className="img-dashboard"
         />
-        <h1 className="newz-dashboard-heading">Today's Top</h1>
+        <h1 className="newz-dashboard-heading">Saved News</h1>
         {/* <button onClick={handleLogOut} className="logout-button">
           {localStorage.getItem("name")} DEN
         </button> */}
@@ -298,14 +253,14 @@ function NewsDashboard() {
             </MenuItem>
             <Divider />
             <Link
-              to={"/saved-news"}
+              to={"/dashboard"}
               style={{ textDecoration: "none", color: "#213555" }}
             >
               <MenuItem>
                 <ListItemIcon>
                   <NewspaperIcon fontSize="medium" />
                 </ListItemIcon>
-                Saved News
+                Dashboard
               </MenuItem>
             </Link>
             <MenuItem onClick={handleLogOut}>
@@ -357,28 +312,14 @@ function NewsDashboard() {
       </div>
 
       {/* Search bar section */}
-      <div className="search-container">
-        <input
-          type="text"
-          placeholder="Search for news..."
-          className="search-bar"
-          value={searchQuery}
-          onChange={(e) => setSearchQuery(e.target.value)}
-        />
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        <button onClick={handleSearch} className="search-button" type="submit">
-          Explore
-        </button>
-      </div>
-
       {/* {error && <p className="error-message">{error}</p>} */}
       <Alert severity="warning" className="error-message" sx={{ opacity: "0" }}>
         {error}
       </Alert>
 
-      {getNews.length > 0 ? (
+      {savedNews.length > 0 ? (
         <div className="cards-container">
-          {getNews.map((entry) => (
+          {savedNews.map((entry) => (
             <div className="card" key={entry.newsID}>
               <div className="card-image">
                 <img
@@ -418,43 +359,29 @@ function NewsDashboard() {
                   {new Date(entry.publishedAt).toLocaleDateString()}
                 </span>
               </div>
-              <br></br>
-              <br></br>
-              <div
-                style={{
-                  display: "flex",
-                  flexDirection: "row",
-                  gap: "30px",
-                  marginTop: "auto",
+              <Button
+                onClick={() => removeNews(entry.newsID)}
+                sx={{
+                  fontSize: "25px",
+                  marginTop: "30px",
+                  fontFamily: "Oswald",
                   padding: "10px",
+                  cursor: "pointer",
+                  fontWeight: "bold",
+                  marginLeft: "auto",
+                  marginRight: "auto",
+                  border: "2px solid red",
+                  color: "red",
+                  borderRadius: "10px",
+                  transition: "all 1s ease",
+                  "&:hover": {
+                    color: "#d8c4b6",
+                    backgroundColor: "red",
+                  },
                 }}
               >
-                <BookmarkIcon
-                  onClick={() => handleSavedNews(entry.newsID)}
-                  sx={{
-                    backgroundColor: "#FFAA33",
-                    color: "#213555",
-                    marginTop: "auto",
-                    fontSize: "50px",
-                    padding: "10px",
-                    cursor: "pointer",
-                    borderRadius: "50%",
-                    transition: "all 1s ease",
-                    "&:hover": {
-                      backgroundColor: "#E1C16E",
-                      color: "#213555",
-                    },
-                  }}
-                ></BookmarkIcon>
-                <Alert
-                  icon={<CheckIcon fontSize="inherit" />}
-                  severity="success"
-                  className="success-message"
-                  style={{ opacity: "0" }}
-                >
-                  Saved !
-                </Alert>
-              </div>
+                Remove
+              </Button>
             </div>
           ))}
         </div>
@@ -483,4 +410,4 @@ function NewsDashboard() {
   );
 }
 
-export default NewsDashboard;
+export default SavedNews;

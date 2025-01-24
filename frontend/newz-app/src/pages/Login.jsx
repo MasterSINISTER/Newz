@@ -25,10 +25,13 @@ function Login() {
         },
       });
       if (response.status === 200) {
+        const data=await response.json();
         const authToken = btoa(username + ":" + password);
+        // Save the token in localStorage
         localStorage.setItem("authToken", authToken);
         localStorage.setItem("username", username);
-        localStorage.setItem("name",response.json.name)
+        localStorage.setItem("name",data.name)
+        localStorage.setItem("email",data.email)
         navigate("/dashboard");
       } else {
         const enableError = document.querySelector(".error-message");

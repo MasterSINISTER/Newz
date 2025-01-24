@@ -44,6 +44,7 @@ public class UserServices {
                 user.setRoles(Arrays.asList("USER"));
                 user.setPassword(passwordEncoder.encode(user.getPassword()));
                 user.setUserID(randomID);
+                user.setUserImage(user.getUserImage());
                 userRepo.save(user);
             } else {
                 throw new RuntimeException("Wrong Credentials !");
@@ -114,6 +115,20 @@ public class UserServices {
             throw new RuntimeException("Something Went Wrong !");
         }
 
+    }
+
+    public void updateProfilePhoto(User user,String imageURL){
+        try{
+            user.setUserImage(imageURL);
+            userRepo.save(user);
+        }
+        catch (Exception e){
+            throw new RuntimeException("Something went Wrong");
+        }
+    }
+
+    public String getUserProfileImage(User user){
+            return user.getUserImage();
     }
 
 }

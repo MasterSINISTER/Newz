@@ -11,9 +11,7 @@
   color: #f5efe7;
 }
 
-
-
-dark-mode{
+dark-mode {
   background: #213555 !important;
   color: #f5efe7 !important;
 }
@@ -40,6 +38,12 @@ img:not([src]) {
   transform: scale(1.4);
   max-width: 200px; /* Adjust width to make it proportional */
   /* Prevent the image from being too large */
+}
+
+.dark-mode {
+  background-color: #000000;
+  color: #d8c4b6;
+  transition: all 1s ease;
 }
 
 .newz-dashboard-heading {
@@ -164,7 +168,24 @@ hr {
   text-underline-offset: 5px;
 }
 
-/* Loader Animation */
+/* Dark Mode and Light Mode */
+
+body.dark-mode {
+  background-color: #000000;
+  transition: all 1s ease;
+}
+
+body.light-mode {
+  background-color: #f5efe7;
+}
+
+.newz-dashboard-heading.dark-mode {
+  color: #d8c4b6 !important;
+}
+
+.newz-dashboard-heading.light-mode {
+  color: #213555;
+}
 
 /* From Uiverse.io by mobinkakei */
 

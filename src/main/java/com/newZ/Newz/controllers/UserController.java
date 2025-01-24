@@ -3,16 +3,13 @@ package com.newZ.Newz.controllers;
 import com.newZ.Newz.apiResponse.emailRes;
 import com.newZ.Newz.entity.User;
 import com.newZ.Newz.services.UserServices;
+import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
-
-import javax.swing.text.html.Option;
-import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
 
 
@@ -53,6 +50,20 @@ public class UserController {
         return new ResponseEntity<>("Something Went Wrong !",HttpStatus.BAD_REQUEST);
     }
 
+    @PutMapping("/add-profile-photo")
+    public ResponseEntity<?>updateTheProfilePhoto(@RequestBody User user){
+        Authentication authentication=SecurityContextHolder.getContext().getAuthentication();
+        String username=authentication.getName();
+        Optional<User>getUser= Optional.ofNullable(userServices.getUserByUsername(username));
+        if(getUser.isPresent()){
+            User currUser=getUser.get();
+            String newProfileString=user.getUserImage();
+            userServices.updateProfilePhoto(currUser,newProfileString);
+            return new ResponseEntity<>("Profile Updated !",HttpStatus.OK);
+        }
+        return new ResponseEntity<>("Not Updated !",HttpStatus.BAD_REQUEST);
+    }
+
     @GetMapping("/verify")
     public ResponseEntity<?>getVerified(){
         Authentication authentication=SecurityContextHolder.getContext().getAuthentication();
@@ -64,6 +75,16 @@ public class UserController {
         return new ResponseEntity<>("Not Found",HttpStatus.NOT_FOUND);
     }
 
+    @GetMapping("/get-profile-image")
+    public ResponseEntity<?>getUserProfileImage(){
+        Authentication authentication=SecurityContextHolder.getContext().getAuthentication();
+        String username=authentication.getName();
+        Optional<User>user= Optional.ofNullable(userServices.getUserByUsername(username));
+        if(user.isPresent()){
+            return new ResponseEntity<>(user.get().getUserImage(),HttpStatus.OK);
+        }
+        return new ResponseEntity<>("No Image Found",HttpStatus.BAD_REQUEST);
+    }
 
 
 
