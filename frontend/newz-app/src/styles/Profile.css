@@ -73,3 +73,153 @@ body.light-mode {
 .newz-dashboard-heading.light-mode {
   color: #213555;
 }
+
+
+/* Responsive Adjustments */
+@media screen and (max-width: 1200px) {
+  .card {
+    padding: 15px;
+    font-size: 17px;
+    min-height: 320px;
+  }
+  .img-dashboard {
+    width: 40%;
+    transform: scale(1.2);
+    max-width: 150px;
+  }
+  .newz-dashboard-heading {
+    font-size: 5rem;
+    letter-spacing: 15px;
+  }
+  .cards-container {
+    grid-template-columns: 1fr;
+  }
+  .search-bar {
+    width: 50%;
+    font-size: 20px;
+  }
+  .search-icon {
+    margin-left: -40px;
+    font-size: 24px;
+  }
+  .profile-heading {
+    font-size: 5rem;
+    letter-spacing: 15px;
+  }
+  .profile-image {
+    width: 200px;
+    height: 180px;
+  }
+  .profile-info {
+    flex-direction: column;
+    gap: 15px;
+  }
+  .profile-info-heading {
+    font-size: 24px;
+  }
+  .profile-info-content {
+    font-size: 20px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .card {
+    padding: 10px;
+    font-size: 15px;
+    min-height: 280px;
+  }
+  .img-dashboard {
+    width: 50%;
+    transform: scale(1);
+    max-width: 120px;
+  }
+  .newz-dashboard-heading {
+    font-size: 4rem;
+    letter-spacing: 10px;
+  }
+  .cards-container {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+  .logout-button {
+    font-size: 16px;
+    padding: 8px 16px;
+  }
+  .search-bar {
+    width: 70%;
+    font-size: 18px;
+  }
+  .search-icon {
+    margin-left: -30px;
+    font-size: 20px;
+  }
+  .profile-heading {
+    font-size: 4rem;
+    letter-spacing: 10px;
+  }
+  .profile-image {
+    width: 150px;
+    height: 130px;
+  }
+  .profile-info {
+    flex-direction: column;
+    gap: 10px;
+  }
+  .profile-info-heading {
+    font-size: 20px;
+  }
+  .profile-info-content {
+    font-size: 18px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .card {
+    padding: 8px;
+    font-size: 14px;
+    min-height: 240px;
+  }
+  .img-dashboard {
+    width: 60%;
+    transform: scale(0.8);
+    max-width: 100px;
+  }
+  .newz-dashboard-heading {
+    font-size: 3rem;
+    letter-spacing: 8px;
+  }
+  .cards-container {
+    grid-template-columns: 1fr;
+    gap: 15px;
+  }
+  .logout-button {
+    font-size: 14px;
+    padding: 6px 12px;
+  }
+  .search-bar {
+    width: 90%;
+    font-size: 16px;
+  }
+  .search-icon {
+    margin-left: -20px;
+    font-size: 18px;
+  }
+  .profile-heading {
+    font-size: 3rem;
+    letter-spacing: 8px;
+  }
+  .profile-image {
+    width: 120px;
+    height: 100px;
+  }
+  .profile-info {
+    flex-direction: column;
+    gap: 8px;
+  }
+  .profile-info-heading {
+    font-size: 18px;
+  }
+  .profile-info-content {
+    font-size: 16px;
+  }
+}

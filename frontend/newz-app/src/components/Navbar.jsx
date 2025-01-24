@@ -61,7 +61,7 @@ function Navbar() {
           <ul className="nav-links">
           <li className='links-nav' onClick={handleWhyHere}><Link to="#">Why ?</Link></li>
           <li className='links-nav' onClick={handleWhatDoWeDo}><Link to="#">What !</Link></li>
-          <li className='links-nav'><Link to="/">Contact</Link></li>
+          <li className='links-nav'><Link to="/contact">Contact</Link></li>
         </ul>
         </div>
        

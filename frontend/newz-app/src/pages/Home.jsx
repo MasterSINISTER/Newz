@@ -4,6 +4,7 @@ import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
 import { Link } from "react-router-dom";
 
+import TextPressure from "../blocks/TextAnimations/TextPressure/TextPressure";
 function Home() {
   useEffect(() => {
     const handleScroll = () => {
@@ -26,10 +27,26 @@ function Home() {
 
   return (
     <>
-    <Navbar/>
+      <Navbar />
       <div className="home-container">
-        <div>
+        {/* <div>
           <h1 className="newz-heading">NEWZ</h1>
+        </div> */}
+
+        <div style={{ position: "relative", height: "300px" }}>
+          <TextPressure
+            text="NEWZ"
+            flex={true}
+            alpha={false}
+            stroke={false}
+            width={true}
+            weight={false}
+            italic={true}
+            textColor="#213555"
+            strokeColor="#ff0000"
+            minFontSize={206}
+            className="newz-heading"
+          />
         </div>
 
         <img
@@ -39,11 +56,14 @@ function Home() {
         />
       </div>
       <div>
-       <Link to="/login"> <button className="btn-scroll">GET STARTED</button></Link>
+        <Link to="/login">
+          {" "}
+          <button className="btn-scroll">GET STARTED</button>
+        </Link>
       </div>
       <div>
         <section className="newz-section">
-          <h1 className="about-us-heading" >Why here ?</h1>
+          <h1 className="about-us-heading">Why here ?</h1>
           <div className="about-us-container">
             <img
               src="https://cdn.dribbble.com/users/456842/screenshots/3454199/media/853180a8bf6cf4f8751d97f3ef17572c.gif"
@@ -62,9 +82,9 @@ function Home() {
       </div>
       <div>
         <section className="newz-section-why">
-          <h1 className="about-us-heading" >What we do ?</h1>
+          <h1 className="about-us-heading">What we do ?</h1>
           <div className="about-us-container">
-          <h3 className="about-us-text">
+            <h3 className="about-us-text">
               Lorem ipsum, dolor sit amet consectetur adipisicing elit. In
               cupiditate doloremque necessitatibus architecto odit vero
               exercitationem quo voluptas tempore repellat, distinctio quibusdam
@@ -76,11 +96,10 @@ function Home() {
               className="about-us-image"
               alt="Scrolling animation"
             />
-            
           </div>
         </section>
       </div>
-          <Footer/>
+      <Footer />
     </>
   );
 }

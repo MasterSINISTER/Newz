@@ -6,6 +6,7 @@ main {
   font-family: "Poppins", sans-serif !important;
   max-width: auto;
   width: 100%;
+  margin-top: 10rem;
   box-shadow: 0 4px #000;
   border: 1px solid #202142;
 
