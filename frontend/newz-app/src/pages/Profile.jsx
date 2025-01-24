@@ -40,7 +40,7 @@ function Profile() {
 
     try {
       const response = await axios.put(
-        "http://localhost:8080/user/add-profile-photo",
+        "https://newz-3vq4.onrender.com/user/add-profile-photo",
         { userImage: image }, // Sending the base64 encoded image
         {
           headers: {
@@ -80,7 +80,7 @@ function Profile() {
   const fetchUserImage = async () => {
     try {
       const response = await axios.get(
-        "http://localhost:8080/user/get-profile-image",
+        "https://newz-3vq4.onrender.com/user/get-profile-image",
         {
           headers: {
             Authorization: `Basic ${authToken}`,

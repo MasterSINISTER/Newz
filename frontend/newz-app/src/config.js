@@ -1,1 +1,1 @@
-export const API_BASE_URL = "https://newz-ft9j.onrender.com";
+export const API_BASE_URL = "https://newz-3vq4.onrender.com";

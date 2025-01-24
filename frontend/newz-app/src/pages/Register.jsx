@@ -68,7 +68,7 @@ export default function Register() {
 
     try {
       const response = await axios.post(
-        "http://localhost:8080/public/add-user",
+        "https://newz-3vq4.onrender.com/public/add-user",
         {
           name: formData.name,
           username: formData.username,
@@ -78,7 +78,7 @@ export default function Register() {
       );
 
       const emailValidation = await axios.get(
-        "http://localhost:8080/user/email-verify",
+        "https://newz-3vq4.onrender.com/user/email-verify",
         {
           headers: {
             Authorization:

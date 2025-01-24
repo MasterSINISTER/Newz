@@ -4,7 +4,7 @@ import Card from '../components/Card'
 function Contact() {
   return (
     <div>
-        <Card/>
+        <h1>Work In Progress</h1>
     </div>
   )
 }

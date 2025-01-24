@@ -27,7 +27,7 @@ function NewsDashboard() {
     try {
       const authToken = localStorage.getItem("authToken");
       const response = await axios.get(
-        "http://localhost:8080/user/get-profile-image",
+        "https://newz-3vq4.onrender.com/user/get-profile-image",
         {
           headers: {
             Authorization: `Basic ${authToken}`,
@@ -48,7 +48,7 @@ function NewsDashboard() {
   const getLocalName = async (e) => {
     try {
       const authToken = localStorage.getItem("authToken");
-      const response = await fetch("http://localhost:8080/admin/get-user", {
+      const response = await fetch("https://newz-3vq4.onrender.com/admin/get-user", {
         headers: {
           method: "GET",
           Authorization: `Basic ${authToken}`,
@@ -81,7 +81,7 @@ function NewsDashboard() {
   const handleSavedNews = (id) => {
     try {
       const authToken = localStorage.getItem("authToken");
-      const respose = fetch(`http://localhost:8080/auth/save-news/${id}`, {
+      const respose = fetch(`https://newz-3vq4.onrender.com/auth/save-news/${id}`, {
         method: "POST",
         headers: {
           method: "POST",
@@ -104,7 +104,7 @@ function NewsDashboard() {
     try {
       fetchUserImage();
       const authToken = localStorage.getItem("authToken");
-      const response = await fetch(`http://localhost:8080/auth/${query}`, {
+      const response = await fetch(`https://newz-3vq4.onrender.com/auth/${query}`, {
         headers: {
           method: "GET",
           Authorization: `Basic ${authToken}`,
