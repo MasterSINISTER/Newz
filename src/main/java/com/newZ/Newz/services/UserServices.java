@@ -19,7 +19,7 @@ import javax.swing.text.html.Option;
 import java.util.Optional;
 import java.util.*;
 
-@Slf4j
+
 @Service
 public class UserServices {
 
@@ -32,7 +32,6 @@ public class UserServices {
 
     private static final String apiKey = "52d99e4a987646f1a70962113f0d0c86";
     private static final String emailValidation = "https://emailvalidation.abstractapi.com/v1/?api_key=API_KEY&email=EMAIL_CHECK";
-
 
 
     private PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
@@ -51,21 +50,20 @@ public class UserServices {
             }
 
         } catch (Exception e) {
-            throw new RuntimeException("Something Went Wrong!"+e.getMessage());
+            throw new RuntimeException("Something Went Wrong!" + e.getMessage());
         }
     }
 
 
-    public boolean getValidation(String email){
-        try{
-            String finalAPI=emailValidation.replace("API_KEY",apiKey).replace("EMAIL_CHECK",email);
-            log.info(finalAPI);
-            ResponseEntity<emailRes>response=restTemplate().exchange(finalAPI,HttpMethod.GET,null, emailRes.class);
-            log.info(response.toString());
-            String body= Objects.requireNonNull(response.getBody()).deliverability;
+    public boolean getValidation(String email) {
+        try {
+            String finalAPI = emailValidation.replace("API_KEY", apiKey).replace("EMAIL_CHECK", email);
+
+            ResponseEntity<emailRes> response = restTemplate().exchange(finalAPI, HttpMethod.GET, null, emailRes.class);
+
+            String body = Objects.requireNonNull(response.getBody()).deliverability;
             return body.equals("DELIVERABLE");
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             throw new RuntimeException("Something Went Wrong !");
         }
     }
@@ -117,18 +115,17 @@ public class UserServices {
 
     }
 
-    public void updateProfilePhoto(User user,String imageURL){
-        try{
+    public void updateProfilePhoto(User user, String imageURL) {
+        try {
             user.setUserImage(imageURL);
             userRepo.save(user);
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             throw new RuntimeException("Something went Wrong");
         }
     }
 
-    public String getUserProfileImage(User user){
-            return user.getUserImage();
+    public String getUserProfileImage(User user) {
+        return user.getUserImage();
     }
 
 }
