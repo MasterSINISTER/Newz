@@ -77,18 +77,9 @@ export default function Register() {
         }
       );
 
-      const emailValidation = await axios.get(
-        "https://newz-3vq4.onrender.com/user/email-verify",
-        {
-          headers: {
-            Authorization:
-              "Basic " + btoa(formData.username + ":" + formData.password),
-            "Content-Type": "application/json",
-          },
-        }
-      );
 
-      if (response.status === 200 && emailValidation.status === 200) {
+
+      if (response.status === 200) {
         const enableError = document.querySelector(".success-message");
         enableError.style.opacity = "1";
         setError("Welcome to Family !");
