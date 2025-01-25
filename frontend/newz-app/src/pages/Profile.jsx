@@ -18,6 +18,7 @@ const style = {
   p: 4,
 };
 
+
 function Profile() {
   const navigate = useNavigate();
   const [image, setImage] = useState(""); // State to hold the base64 string for upload
@@ -55,6 +56,26 @@ function Profile() {
     } catch (err) {
       console.error("Error during upload:", err);
       alert("Error uploading the image. Please some other image.");
+    }
+  };
+
+
+  const handleRemove = async () => {
+    try {
+      const response = await axios.delete(
+        "https://newz-3vq4.onrender.com/user/remove-profile-image",
+        {
+          headers: {
+            Authorization: `Basic ${authToken}`,
+          },
+        }
+      );
+      console.log("Image removed successfully:", response.data);
+      alert("Image removed successfully!");
+      window.location.reload();
+    } catch (err) {
+      console.error("Error removing the image:", err);
+      alert("Error removing the image. Please try again.");
     }
   };
 
@@ -121,7 +142,7 @@ function Profile() {
         {localStorage.getItem("name")}'s Profile
       </h1>
       <div className="profile-container">
-        {fetchedImage && (
+        {fetchedImage ? (
           <img
             height={200}
             width={200}
@@ -129,33 +150,58 @@ function Profile() {
             alt="Fetched Profile"
             className="profile-image"
           />
+        ) : (
+          <img
+            src="https://icons.iconarchive.com/icons/papirus-team/papirus-status/512/avatar-default-icon.png"
+            alt="Fetched Profile"
+            className="profile-image"
+          />
         )}
 
-        <Button
-          variant="contained"
-          onClick={handleOpen}
-          sx={{
-            backgroundColor: "#213555",
-            padding: "10px 20px",
-            color: "#d8c4b6",
-            fontSize: "16px",
-            fontFamily: "Oswald",
-            letterSpacing: "2px",
-            display: "block",
-            marginRight: "auto",
-            marginLeft: "auto",
-            marginTop: "20px",
-            marginBottom: "20px",
-            borderRadius: "10px",
-            transition: "all 0.5s ease",
-            "&:hover": {
-              backgroundColor: "#d8c4b6",
-              color: "#213555",
-            },
-          }}
-        >
-          Upload Avatar
-        </Button>
+        <div className="upload-button-container">
+          <Button
+            variant="contained"
+            onClick={handleOpen}
+            sx={{
+              backgroundColor: "#213555",
+              padding: "10px 20px",
+              color: "#d8c4b6",
+              fontSize: "16px",
+              fontFamily: "Oswald",
+              letterSpacing: "2px",
+              borderRadius: "10px",
+              transition: "all 0.5s ease",
+              "&:hover": {
+                backgroundColor: "#d8c4b6",
+                color: "#213555",
+              },
+            }}
+            className="upload-button"
+          >
+            Upload Avatar
+          </Button>
+          <Button
+          onClick={handleRemove}
+            variant="contained"
+            sx={{
+              backgroundColor: "red",
+              marginLeft: "10px",
+              padding: "10px 20px",
+              color: "#d8c4b6",
+              fontSize: "16px",
+              fontFamily: "Oswald",
+              letterSpacing: "2px",
+              borderRadius: "10px",
+              transition: "all 0.5s ease",
+              "&:hover": {
+                backgroundColor: "#d8c4b6",
+                color: "red",
+              }}}
+            className="remove-button"
+          >
+            Remove Avatar
+          </Button>
+        </div>
 
         <Modal
           aria-labelledby="transition-modal-title"

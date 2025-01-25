@@ -187,8 +187,6 @@ body.light-mode {
   color: #213555;
 }
 
-/* From Uiverse.io by mobinkakei */
-
 .loader {
   --path: #2f3545;
   --dot: #5628ee;
@@ -452,7 +450,7 @@ body.light-mode {
     max-width: 120px;
   }
   .newz-dashboard-heading {
-    font-size: 4rem;
+    font-size: 3rem;
     letter-spacing: 10px;
     text-underline-offset: 10px;
   }
@@ -476,8 +474,9 @@ body.light-mode {
     font-size: 20px;
     margin-top: 10px;
   }
-  .profile-image{
-
+  .avatar{
+    width: 50px;
+    height: 75  ;
   }
 }
 

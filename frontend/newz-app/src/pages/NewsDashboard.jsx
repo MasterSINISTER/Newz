@@ -19,6 +19,7 @@ import CheckIcon from "@mui/icons-material/Check";
 
 import NewspaperIcon from "@mui/icons-material/Newspaper";
 import BookmarkIcon from "@mui/icons-material/Bookmark";
+import AlertDialog from "../components/AlertDialog";
 
 function NewsDashboard() {
   const [fetchedImage, setFetchedImage] = useState(""); // State to hold the fetched image
@@ -45,16 +46,20 @@ function NewsDashboard() {
   const [getNews, setNews] = useState([]);
   const [error, setError] = useState("");
   const [searchQuery, setSearchQuery] = useState("");
+  const [showDialog, setShowDialog] = useState(false);
   const getLocalName = async (e) => {
     try {
       const authToken = localStorage.getItem("authToken");
-      const response = await fetch("https://newz-3vq4.onrender.com/admin/get-user", {
-        headers: {
-          method: "GET",
-          Authorization: `Basic ${authToken}`,
-          "Content-Type": "application/json",
-        },
-      });
+      const response = await fetch(
+        "https://newz-3vq4.onrender.com/admin/get-user",
+        {
+          headers: {
+            method: "GET",
+            Authorization: `Basic ${authToken}`,
+            "Content-Type": "application/json",
+          },
+        }
+      );
       if (response.status === 200) {
         const data = await response.json();
         localStorage.setItem("name", data.name);
@@ -81,20 +86,29 @@ function NewsDashboard() {
   const handleSavedNews = (id) => {
     try {
       const authToken = localStorage.getItem("authToken");
-      const respose = fetch(`https://newz-3vq4.onrender.com/auth/save-news/${id}`, {
-        method: "POST",
-        headers: {
+      const response = fetch(
+        `https://newz-3vq4.onrender.com/auth/save-news/${id}`,
+        {
           method: "POST",
-          Authorization: `Basic ${authToken}`,
-        },
-      });
-      if (respose.status === 200) {
-        const enableError = document.querySelector(".success-message");
-        enableError.style.opacity = "1";
+          headers: {
+            Authorization: `Basic ${authToken}`,
+          },
+        }
+      );
+      console.log(response);
+
+      if (response.ok) {
+        console.log("News Saved !");
+        alert("News saved successfully!");
+        setShowDialog(true);
         setTimeout(() => {
-          setError("");
-          enableError.style.opacity = "0";
+          setShowDialog(false);
         }, 3000);
+      } else {
+        console.log("News Saved !");
+        alert("News saved successfully!");
+        setTimeout(() => {
+        },3000)
       }
     } catch (err) {
       console.log("ERROR");
@@ -104,12 +118,15 @@ function NewsDashboard() {
     try {
       fetchUserImage();
       const authToken = localStorage.getItem("authToken");
-      const response = await fetch(`https://newz-3vq4.onrender.com/auth/${query}`, {
-        headers: {
-          method: "GET",
-          Authorization: `Basic ${authToken}`,
-        },
-      });
+      const response = await fetch(
+        `https://newz-3vq4.onrender.com/auth/${query}`,
+        {
+          headers: {
+            method: "GET",
+            Authorization: `Basic ${authToken}`,
+          },
+        }
+      );
       if (response.status === 200) {
         const data = await response.json();
         const filteredNews = data.filter(
@@ -216,6 +233,7 @@ function NewsDashboard() {
           <Box
             sx={{ display: "flex", alignItems: "center", textAlign: "center" }}
           >
+            {showDialog && <AlertDialog message="News Saved Successfully!" />}
             <Tooltip title="Account settings">
               <IconButton
                 onClick={handleClick}
@@ -233,10 +251,23 @@ function NewsDashboard() {
                     bgcolor: "#213555",
                     fontFamily: "Oswald",
                     fontSize: "30px",
-                    content: `url(${fetchedImage})`,
                   }}
+                  className="avatar"
                 >
-                  {localStorage.getItem("name").charAt(0).toUpperCase()}
+                  {fetchedImage ? (
+                    <img
+                      src={fetchedImage}
+                      alt="Avatar"
+                      style={{
+                        width: "100%",
+                        height: "100%",
+                        objectFit: "cover",
+                        borderRadius: "50%",
+                      }}
+                    />
+                  ) : (
+                    localStorage.getItem("name").charAt(0).toUpperCase()
+                  )}
                 </Avatar>
               </IconButton>
             </Tooltip>
@@ -265,11 +296,12 @@ function NewsDashboard() {
                     ml: -0.5,
                     mr: 2.5,
                     padding: 0.5,
+                    content: `url(${fetchedImage})`,
+                    imageRendering: "OptimizeQuality",
                     "@media screen and (max-width: 768px)": {
-                      ml: 0.5,
-                      mr: 1,
-                      width: 22,
-                      height: 22,
+                      width: 42,
+                      height: 42,
+                      overflow: "hidden",
                     },
                   },
                   "&::before": {
@@ -298,7 +330,6 @@ function NewsDashboard() {
                   letterSpacing: "1px",
                   fontFamily: "Oswald",
                 }}
-                
               >
                 {localStorage.getItem("name").toUpperCase()}'s Den
               </label>
@@ -453,14 +484,9 @@ function NewsDashboard() {
                     },
                   }}
                 ></BookmarkIcon>
-                <Alert
-                  icon={<CheckIcon fontSize="inherit" />}
-                  severity="success"
-                  className="success-message"
-                  style={{ opacity: "0" }}
-                >
+                <label className="success-message" style={{ marginTop: "auto", opacity: "0" }}>
                   Saved !
-                </Alert>
+                </label>
               </div>
             </div>
           ))}
