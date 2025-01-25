@@ -54,7 +54,7 @@ function Profile() {
       window.location.reload();
     } catch (err) {
       console.error("Error during upload:", err);
-      alert("Error uploading the image. Please try again.");
+      alert("Error uploading the image. Please some other image.");
     }
   };
 

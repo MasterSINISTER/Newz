@@ -265,6 +265,12 @@ function NewsDashboard() {
                     ml: -0.5,
                     mr: 2.5,
                     padding: 0.5,
+                    "@media screen and (max-width: 768px)": {
+                      ml: 0.5,
+                      mr: 1,
+                      width: 22,
+                      height: 22,
+                    },
                   },
                   "&::before": {
                     content: '""',
@@ -292,6 +298,7 @@ function NewsDashboard() {
                   letterSpacing: "1px",
                   fontFamily: "Oswald",
                 }}
+                
               >
                 {localStorage.getItem("name").toUpperCase()}'s Den
               </label>

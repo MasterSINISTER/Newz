@@ -441,6 +441,7 @@ body.light-mode {
 
 @media screen and (max-width: 768px) {
   .card {
+    transition: all 1s ease;
     padding: 10px;
     font-size: 15px;
     min-height: 280px;
@@ -453,6 +454,7 @@ body.light-mode {
   .newz-dashboard-heading {
     font-size: 4rem;
     letter-spacing: 10px;
+    text-underline-offset: 10px;
   }
   .cards-container {
     grid-template-columns: 1fr;
@@ -469,6 +471,13 @@ body.light-mode {
   .search-icon {
     margin-left: -30px;
     font-size: 20px;
+  }
+  .search-button{
+    font-size: 20px;
+    margin-top: 10px;
+  }
+  .profile-image{
+
   }
 }
 
