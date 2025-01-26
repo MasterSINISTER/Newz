@@ -28,7 +28,7 @@ function NewsDashboard() {
     try {
       const authToken = localStorage.getItem("authToken");
       const response = await axios.get(
-        "https://newz-3vq4.onrender.com/user/get-profile-image",
+        "https://newz-r3dg.onrender.com/user/get-profile-image",
         {
           headers: {
             Authorization: `Basic ${authToken}`,
@@ -51,7 +51,7 @@ function NewsDashboard() {
     try {
       const authToken = localStorage.getItem("authToken");
       const response = await fetch(
-        "https://newz-3vq4.onrender.com/admin/get-user",
+        "https://newz-r3dg.onrender.com/admin/get-user",
         {
           headers: {
             method: "GET",
@@ -87,7 +87,7 @@ function NewsDashboard() {
     try {
       const authToken = localStorage.getItem("authToken");
       const response = fetch(
-        `https://newz-3vq4.onrender.com/auth/save-news/${id}`,
+        `https://newz-r3dg.onrender.com/auth/save-news/${id}`,
         {
           method: "POST",
           headers: {
@@ -119,7 +119,7 @@ function NewsDashboard() {
       fetchUserImage();
       const authToken = localStorage.getItem("authToken");
       const response = await fetch(
-        `https://newz-3vq4.onrender.com/auth/${query}`,
+        `https://newz-r3dg.onrender.com/auth/${query}`,
         {
           headers: {
             method: "GET",

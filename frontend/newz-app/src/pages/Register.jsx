@@ -68,7 +68,7 @@ export default function Register() {
 
     try {
       const response = await axios.post(
-        "https://newz-3vq4.onrender.com/public/add-user",
+        "https://newz-r3dg.onrender.com/public/add-user",
         {
           name: formData.name,
           username: formData.username,

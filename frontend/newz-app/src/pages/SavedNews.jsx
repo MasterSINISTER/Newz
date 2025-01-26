@@ -29,7 +29,7 @@ function SavedNews() {
     try {
       const authToken = localStorage.getItem("authToken");
       const response = await axios.get(
-        "https://newz-3vq4.onrender.com/user/get-profile-image",
+        "https://newz-r3dg.onrender.com/user/get-profile-image",
         {
           headers: {
             Authorization: `Basic ${authToken}`,
@@ -63,7 +63,7 @@ function SavedNews() {
     try {
       fetchUserImage();
       const authToken = localStorage.getItem("authToken");
-      const response = await fetch("https://newz-3vq4.onrender.com/auth/get-news", {
+      const response = await fetch("https://newz-r3dg.onrender.com/auth/get-news", {
         headers: {
           method: "GET",
           Authorization: `Basic ${authToken}`,
@@ -90,7 +90,7 @@ function SavedNews() {
   const removeNews = async (id) => {
     try {
       const authToken = localStorage.getItem("authToken");
-      const response = await fetch(`https://newz-3vq4.onrender.com/auth/delete/${id}`, {
+      const response = await fetch(`https://newz-r3dg.onrender.com/auth/delete/${id}`, {
         method: "DELETE",
         headers: {
           method: "DELETE",

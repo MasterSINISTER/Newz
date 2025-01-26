@@ -17,7 +17,7 @@ function Login() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch("https://newz-3vq4.onrender.com/user/verify", {
+      const response = await fetch("https://newz-r3dg.onrender.com/user/verify", {
         method: "GET",
         headers: {
           Authorization: "Basic " + btoa(username + ":" + password),
