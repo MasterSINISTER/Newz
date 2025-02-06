@@ -9,8 +9,9 @@ body {
   display: flex;
   flex-direction: row;
   gap: 60px;
-  height: 100vh;
-  padding-top: 100px;
+  height: 80vh;
+  padding-top: auto;
+  padding: 20px;
   justify-content: center; /* Center content horizontally */
 }
 
